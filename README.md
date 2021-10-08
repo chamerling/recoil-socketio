@@ -1,6 +1,30 @@
-# Getting Started with Create React App
+# WebSocket + Recoil POC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Provides Node backend (Express + Socket.io) and Frontend (React + Recoil).
+
+## Hooks
+
+### useSocketIO
+
+```ts
+import useSocketIO from "./hooks/useSocketIO";
+
+const [url] = useState("ws://localhost:8080");
+const { io } = useSocketIO(url);
+
+useEffect(() => {
+  io?.on('message', (message: Message) => {
+    updateMessages(message);
+  });
+  io?.on('status-update', (user: User) => {
+    updateStatus({ id: user.id, connected: user.connected });
+  });
+}, [io, updateMessages, updateStatus]);
+```
+
+### useRealtime
+
+
 
 ## Available Scripts
 
