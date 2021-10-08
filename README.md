@@ -24,19 +24,46 @@ useEffect(() => {
 
 ### useRealtime
 
+```ts
+const updateStatus = useRecoilCallback(({ set }) => (status: { id: string, connected: boolean }) => {
+  set(UserStatusSelectorFamily(status.id), status.connected);
+}, []);
 
+const realtimeStatus = useRealtime<UserStatus>(
+  {
+    event: "status-update",
+    onEvent: updateStatus,
+    history: 10,
+  },
+);
+```
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### Frontend `yarn start`
+
+```sh
+yarn install # first time only
+yarn start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+### Backend `yarn start`
+
+```sh
+cd backend
+yarn install # first time only
+yarn start
+```
+
+Runs the backend in development mode on [http://localhost:8080](http://localhost:8080).
 
 ### `yarn test`
 
